@@ -1,0 +1,245 @@
+    <record model="account.account.type" id="acct_type_1">
+      <field name="name">ნაღდი ფული სალაროში</field>
+      <field name="statement">balance</field>
+      <field name="sequence">10</field>
+      <field name="asset" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_2">
+      <field name="name">ფული საბანკო ანგარიშებზე</field>
+      <field name="statement">balance</field>
+      <field name="sequence">20</field>
+      <field name="asset" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_3">
+      <field name="name">მოკლევადიანი ინვესტიციები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">30</field>
+      <field name="asset" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_4">
+      <field name="name">მოკლევადიანი მოთხოვნები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">40</field>
+      <field name="asset" eval="True"/>
+      <field name="receivable" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_5">
+      <field name="name">მოკლევადიანი სათამასუქო მოთხოვნები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">50</field>
+      <field name="asset" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_6">
+      <field name="name">სასაქონლო-მატერიალური მარაგი</field>
+      <field name="statement">balance</field>
+      <field name="sequence">60</field>
+      <field name="asset" eval="True"/>
+      <field name="stock" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_7">
+      <field name="name">წინასწარ გაწეული ხარჯები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">70</field>
+      <field name="asset" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_8">
+      <field name="name">დარიცხული მოთხოვნები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">80</field>
+      <field name="asset" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_9">
+      <field name="name">სხვა მიმდინარე აქტივები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">90</field>
+      <field name="asset" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_10">
+      <field name="name">ძირითადი საშუალებები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">100</field>
+      <field name="asset" eval="True"/>
+      <field name="fixed_asset" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_11">
+      <field name="name">არამატერიალური აქტივები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">110</field>
+      <field name="asset" eval="True"/>
+      <field name="fixed_asset" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_12">
+      <field name="name">გრძელვადიანი ინვესტიციები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">120</field>
+      <field name="asset" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_13">
+      <field name="name">გრძელვადიანი მოთხოვნები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">130</field>
+      <field name="asset" eval="True"/>
+      <field name="receivable" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_14">
+      <field name="name">სხვა გრძელვადიანი აქტივები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">140</field>
+      <field name="asset" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_15">
+      <field name="name">მოკლევადიანი სესხები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">150</field>
+      <field name="payable" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_16">
+      <field name="name">საბანკო კრედიტები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">160</field>
+      <field name="payable" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_17">
+      <field name="name">საგადასახადო ვალდებულებები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">170</field>
+      <field name="payable" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_18">
+      <field name="name">დარიცხული ვალდებულებები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">180</field>
+      <field name="payable" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_19">
+      <field name="name">სხვა მოკლევადიანი ვალდებულებები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">190</field>
+      <field name="payable" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_20">
+      <field name="name">გრძელვადიანი სესხები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">200</field>
+      <field name="payable" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_21">
+      <field name="name">სხვა გრძელვადიანი ვალდებულებები</field>
+      <field name="statement">balance</field>
+      <field name="sequence">210</field>
+      <field name="payable" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_22">
+      <field name="name">საწესდებო კაპიტალი</field>
+      <field name="statement">balance</field>
+      <field name="sequence">240</field>
+    </record>
+
+    <record model="account.account.type" id="acct_type_23">
+      <field name="name">პარტნიორთა კაპიტალი, რომლის მონაწილეობაც დასადგენია</field>
+      <field name="statement">balance</field>
+      <field name="sequence">250</field>
+    </record>
+
+    <record model="account.account.type" id="acct_type_24">
+      <field name="name">მოგება/ ზარალი</field>
+      <field name="statement">balance</field>
+      <field name="sequence">260</field>
+    </record>
+
+    <record model="account.account.type" id="acct_type_25">
+      <field name="name">რეზერვები და დაფინანსება</field>
+      <field name="statement">balance</field>
+      <field name="sequence">270</field>
+    </record>
+
+    <record model="account.account.type" id="acct_type_26">
+      <field name="name">საოპერაციო შემოსავლები</field>
+      <field name="statement">income</field>
+      <field name="sequence">280</field>
+      <field name="revenue" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_27">
+      <field name="name">რეალიზებული პროდუქციის თვითღირებულება (პროდუქციის სფეროს საწარმოებისთვის)</field>
+      <field name="statement">income</field>
+      <field name="sequence">290</field>
+      <field name="expense" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_28">
+      <field name="name">რეალიზებული პროდუქციის თვითღირებულება (ვაჭრო საწარმოებისთვის)</field>
+      <field name="statement">income</field>
+      <field name="sequence">300</field>
+      <field name="expense" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_29">
+      <field name="name">მიწოდების ხარჯები</field>
+      <field name="statement">income</field>
+      <field name="sequence">310</field>
+      <field name="expense" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_30">
+      <field name="name">საერთო და ადმინისტრაციული ხარჯები</field>
+      <field name="statement">income</field>
+      <field name="sequence">320</field>
+      <field name="expense" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_31">
+      <field name="name">არასაოპერაციო შემოსავლები</field>
+      <field name="statement">income</field>
+      <field name="sequence">330</field>
+      <field name="revenue" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_32">
+      <field name="name">არასაოპერაციო ხარჯები</field>
+      <field name="statement">income</field>
+      <field name="sequence">340</field>
+      <field name="expense" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_33">
+      <field name="name">განსაკუთრებული შემოსავლები</field>
+      <field name="statement">income</field>
+      <field name="sequence">350</field>
+      <field name="revenue" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_34">
+      <field name="name">განსაკუთრებული ხარჯები</field>
+      <field name="statement">income</field>
+      <field name="sequence">355</field>
+      <field name="expense" eval="True"/>
+    </record>
+
+    <record model="account.account.type" id="acct_type_35">
+      <field name="name">სხვა ხარჯები</field>
+      <field name="statement">income</field>
+      <field name="sequence">360</field>
+      <field name="expense" eval="True"/>
+    </record>
