@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tryton>
+  <data>
+
+    <!-- General Ledger - Accounts (root ანგარიშის გარეშე) -->
+    <record model="ir.action.act_window"
+            id="act_general_ledger_account_ge">
+      <field name="name">General Ledger (GE)</field>
+      <field name="res_model">account.general_ledger.account</field>
+      <field name="context_model">account.general_ledger.account.context</field>
+      <!-- ვფილტრავთ ისე, რომ მხოლოდ ის ხაზები გამოჩნდეს,
+           სადაც ანგარიშს ჰყავს parent (ანუ root არ გამოჩნდება) -->
+      <field name="domain"
+             eval="[('account.parent', '!=', None)]"
+             pyson="1"/>
+    </record>
+
+    <!-- ვიყენებთ იმავე list view-ს, რაც სტანდარტულ GL-ს -->
+    <record model="ir.action.act_window.view"
+            id="act_general_ledger_account_ge_view_list">
+      <field name="sequence" eval="10"/>
+      <field name="view" ref="account.general_ledger_account_view_list"/>
+      <field name="act_window" ref="act_general_ledger_account_ge"/>
+    </record>
+
+    <!-- ახალი მენიუ Reporting-ის ქვეშ -->
+    <menuitem
+      name="General Ledger (GE)"
+      id="menu_general_ledger_ge"
+      parent="account.menu_reporting"
+      action="act_general_ledger_account_ge"
+      sequence="11"/>
+  </data>
+</tryton>
