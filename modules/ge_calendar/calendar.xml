@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<tryton>
+  <data>
+
+    <!-- Form view -->
+    <record model="ir.ui.view" id="public_holiday_view_form">
+      <field name="model">ge.public_holiday</field>
+      <field name="type">form</field>
+      <field name="name">ge_public_holiday_form</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+        <form>
+          <label name="name"/><field name="name"/>
+          <label name="date"/><field name="date"/>
+          <label name="country"/><field name="country"/>
+          <label name="active"/><field name="active"/>
+        </form>
+        ]]>
+      </field>
+    </record>
+
+    <!-- Tree view -->
+    <record model="ir.ui.view" id="public_holiday_view_tree">
+      <field name="model">ge.public_holiday</field>
+      <field name="type">tree</field>
+      <field name="name">ge_public_holiday_tree</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+        <tree>
+          <field name="name"/>
+          <field name="date"/>
+          <field name="country"/>
+          <field name="active"/>
+        </tree>
+        ]]>
+      </field>
+    </record>
+
+    <!-- Action -->
+    <record model="ir.action.act_window" id="act_public_holiday">
+      <field name="name">Public Holidays</field>
+      <field name="res_model">ge.public_holiday</field>
+    </record>
+
+    <record model="ir.action.act_window.view" id="act_public_holiday_view_tree">
+      <field name="sequence" eval="10"/>
+      <field name="view" ref="public_holiday_view_tree"/>
+      <field name="act_window" ref="act_public_holiday"/>
+    </record>
+
+    <record model="ir.action.act_window.view" id="act_public_holiday_view_form">
+      <field name="sequence" eval="20"/>
+      <field name="view" ref="public_holiday_view_form"/>
+      <field name="act_window" ref="act_public_holiday"/>
+    </record>
+
+    <!-- Menus: Party → Configuration -->
+    <menuitem name="Georgian Calendar"
+              id="menu_ge_calendar_root"
+              parent="party.menu_configuration"
+              sequence="10"/>
+
+    <menuitem name="Public Holidays"
+              id="menu_ge_public_holiday"
+              parent="menu_ge_calendar_root"
+              action="act_public_holiday"/>
+
+  </data>
+</tryton>

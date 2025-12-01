@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<tryton>
+  <data>
+
+    <!-- Contract Form -->
+    <record model="ir.ui.view" id="contract_view_form">
+      <field name="model">hr.contract</field>
+      <field name="type">form</field>
+      <field name="name">hr_contract_form</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+        <form>
+          <label name="company"/><field name="company"/>
+          <label name="employee"/><field name="employee"/>
+          <label name="start_date"/><field name="start_date"/>
+          <label name="end_date"/><field name="end_date"/>
+          <label name="wage"/><field name="wage"/>
+          <label name="currency"/><field name="currency"/>
+          <label name="journal"/><field name="journal"/>
+
+          <label name="expense_account"/><field name="expense_account"/>
+          <label name="payable_account"/><field name="payable_account"/>
+          <label name="tax_account"/><field name="tax_account"/>
+          <label name="pension_account"/><field name="pension_account"/>
+          <label name="employer_pension_expense_account"/>
+          <field name="employer_pension_expense_account"/>
+
+          <label name="pension_participant"/><field name="pension_participant"/>
+          <label name="active"/><field name="active"/>
+        </form>
+        ]]>
+      </field>
+    </record>
+
+    <!-- Contract Tree -->
+    <record model="ir.ui.view" id="contract_view_list">
+      <field name="model">hr.contract</field>
+      <field name="type">tree</field>
+      <field name="name">hr_contract_list</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+        <tree>
+          <field name="company"/>
+          <field name="employee"/>
+          <field name="start_date"/>
+          <field name="end_date"/>
+          <field name="wage"/>
+          <field name="currency"/>
+          <field name="active"/>
+        </tree>
+        ]]>
+      </field>
+    </record>
+
+    <!-- Payslip Form: 3 სვეტი + დიდი Lines -->
+    <record model="ir.ui.view" id="payslip_view_form">
+      <field name="model">hr.payslip</field>
+      <field name="type">form</field>
+      <field name="name">hr_payslip_form</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+        <form col="6">
+          <!-- 1-ლი სვეტი: Company / From / Gross / Income Tax / Net -->
+          <group col="2" colspan="2">
+            <label name="company"/><field name="company"/>
+            <label name="date_from"/><field name="date_from"/>
+            <label name="gross"/><field name="gross"/>
+            <label name="income_tax"/><field name="income_tax"/>
+            <label name="net"/><field name="net"/>
+          </group>
+
+          <!-- 2-ე სვეტი: Employee / To / Paid / Pension(Employee) / State -->
+          <group col="2" colspan="2">
+            <label name="employee"/><field name="employee"/>
+            <label name="date_to"/><field name="date_to"/>
+            <label name="paid_days"/><field name="paid_days"/>
+            <label name="pension_employee"/><field name="pension_employee"/>
+            <label name="state"/><field name="state"/>
+          </group>
+
+          <!-- 3-ე სვეტი: Contract / Working Days / Currency / Pension(Employer) -->
+          <group col="2" colspan="2">
+            <label name="contract"/><field name="contract"/>
+            <label name="working_days"/><field name="working_days"/>
+            <label name="currency"/><field name="currency"/>
+            <label name="pension_employer"/><field name="pension_employer"/>
+          </group>
+
+          <newline/>
+
+          <!-- ღილაკები -->
+          <group col="4" colspan="6">
+            <button name="compute" string="COMPUTE"/>
+            <button name="complete" string="SET TO DONE"/>
+            <button name="reset_to_draft" string="RESET TO DRAFT"/>
+            <button name="cancel" string="CANCEL"/>
+          </group>
+
+          <!-- Lines: მთელი სიგანით და yexpand -->
+          <label name="lines"/>
+          <field name="lines" colspan="6" yexpand="1"/>
+        </form>
+        ]]>
+      </field>
+    </record>
+
+    <!-- Payslip Tree -->
+    <record model="ir.ui.view" id="payslip_view_list">
+      <field name="model">hr.payslip</field>
+      <field name="type">tree</field>
+      <field name="name">hr_payslip_list</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+        <tree>
+          <field name="company"/>
+          <field name="employee"/>
+          <field name="contract"/>
+          <field name="date_from"/>
+          <field name="date_to"/>
+          <field name="working_days"/>
+          <field name="paid_days"/>
+          <field name="gross"/>
+          <field name="net"/>
+          <field name="state"/>
+        </tree>
+        ]]>
+      </field>
+    </record>
+
+    <!-- Payslip Line Form -->
+    <record model="ir.ui.view" id="payslip_line_view_form">
+      <field name="model">hr.payslip.line</field>
+      <field name="type">form</field>
+      <field name="name">hr_payslip_line_form</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+        <form>
+          <label name="name"/><field name="name"/>
+          <label name="code"/><field name="code"/>
+          <label name="category"/><field name="category"/>
+          <label name="quantity"/><field name="quantity"/>
+          <label name="rate"/><field name="rate"/>
+          <label name="amount"/><field name="amount"/>
+        </form>
+        ]]>
+      </field>
+    </record>
+
+    <!-- Payslip Line Tree -->
+    <record model="ir.ui.view" id="payslip_line_view_list">
+      <field name="model">hr.payslip.line</field>
+      <field name="type">tree</field>
+      <field name="name">hr_payslip_line_list</field>
+      <field name="arch" type="xml">
+        <![CDATA[
+        <tree>
+          <field name="name"/>
+          <field name="code"/>
+          <field name="category"/>
+          <field name="quantity"/>
+          <field name="rate"/>
+          <field name="amount"/>
+        </tree>
+        ]]>
+      </field>
+    </record>
+
+    <!-- Actions -->
+    <record model="ir.action.act_window" id="act_contract">
+      <field name="name">Contracts</field>
+      <field name="res_model">hr.contract</field>
+    </record>
+    <record model="ir.action.act_window.view" id="act_contract_view1">
+      <field name="sequence" eval="10"/>
+      <field name="view" ref="contract_view_list"/>
+      <field name="act_window" ref="act_contract"/>
+    </record>
+    <record model="ir.action.act_window.view" id="act_contract_view2">
+      <field name="sequence" eval="20"/>
+      <field name="view" ref="contract_view_form"/>
+      <field name="act_window" ref="act_contract"/>
+    </record>
+
+    <record model="ir.action.act_window" id="act_payslip">
+      <field name="name">Payslips</field>
+      <field name="res_model">hr.payslip</field>
+    </record>
+    <record model="ir.action.act_window.view" id="act_payslip_view1">
+      <field name="sequence" eval="10"/>
+      <field name="view" ref="payslip_view_list"/>
+      <field name="act_window" ref="act_payslip"/>
+    </record>
+    <record model="ir.action.act_window.view" id="act_payslip_view2">
+      <field name="sequence" eval="20"/>
+      <field name="view" ref="payslip_view_form"/>
+      <field name="act_window" ref="act_payslip"/>
+    </record>
+
+    <!-- Menus -->
+    <menuitem name="Payroll" sequence="50" id="menu_payroll_root"/>
+    <menuitem parent="menu_payroll_root" action="act_contract"
+              sequence="10" id="menu_payroll_contracts" name="Contracts"/>
+    <menuitem parent="menu_payroll_root" action="act_payslip"
+              sequence="20" id="menu_payroll_payslips" name="Payslips"/>
+
+  </data>
+</tryton>

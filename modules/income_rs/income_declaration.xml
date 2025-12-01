@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+
+        <record model="ir.ui.view" id="view_income_declaration_line_tree">
+            <field name="model">ge.income.declaration.line</field>
+            <field name="type">tree</field>
+            <field name="name">income_declaration_line_tree</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <tree>
+                    <field name="tin"/>
+                    <field name="first_name"/>
+                    <field name="last_name"/>
+                    <field name="address"/>
+                    <field name="residency_code"/>
+                    <field name="recipient_category"/>
+                    <field name="payment_type"/>
+                    <field name="amount"/>
+                    <field name="other_relief"/>
+                    <field name="payment_date"/>
+                    <field name="tax_rate"/>
+                    <field name="treaty_exempt_tax"/>
+                    <field name="foreign_tax_credit"/>
+                    <field name="tax_amount"/>
+                </tree>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_income_declaration_form">
+            <field name="model">ge.income.declaration</field>
+            <field name="type">form</field>
+            <field name="name">income_declaration_form</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <form>
+                    <group id="header" col="4">
+                        <label name="company"/>
+                        <field name="company"/>
+                        <label name="period"/>
+                        <field name="period"/>
+                        <label name="state"/>
+                        <field name="state"/>
+                    </group>
+
+                    <notebook colspan="4" yexpand="1">
+                        <page id="lines_page" string="დეკლარაციის სტრიქონები">
+                            <field name="lines"
+                                   mode="tree,form"
+                                   colspan="4"
+                                   yexpand="1"
+                                   height="400"/>
+                        </page>
+
+                        <page id="rs_info_page" string="RS ინფორმაცია">
+                            <group id="rs_group" col="4">
+                                <label name="rs_id"/>
+                                <field name="rs_id"/>
+                                <label name="rs_status"/>
+                                <field name="rs_status"/>
+                            </group>
+                        </page>
+                    </notebook>
+
+                    <group id="totals" col="4">
+                        <label name="total_amount"/>
+                        <field name="total_amount"/>
+                        <label name="total_tax"/>
+                        <field name="total_tax"/>
+                    </group>
+
+                    <group id="buttons" col="4">
+                        <button name="compute" string="გადათვლა" icon="tryton-refresh"/>
+                        <button name="send_rs" string="RS-ზე გაგზავნა" icon="tryton-ok"/>
+                    </group>
+                </form>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_income_declaration_tree">
+            <field name="model">ge.income.declaration</field>
+            <field name="type">tree</field>
+            <field name="name">income_declaration_tree</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <tree>
+                    <field name="company"/>
+                    <field name="period"/>
+                    <field name="state"/>
+                    <field name="total_amount"/>
+                    <field name="total_tax"/>
+                    <field name="rs_status"/>
+                </tree>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_income_declaration">
+            <field name="name">Income Tax</field>
+            <field name="res_model">ge.income.declaration</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_income_declaration_view_tree">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="view_income_declaration_tree"/>
+            <field name="act_window" ref="act_income_declaration"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_income_declaration_view_form">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="view_income_declaration_form"/>
+            <field name="act_window" ref="act_income_declaration"/>
+        </record>
+
+        <menuitem name="RS"
+                  id="menu_income_rs_root"
+                  sequence="70"/>
+
+        <menuitem parent="menu_income_rs_root"
+                  id="menu_income_declaration"
+                  sequence="10"
+                  name="Declarations"/>
+
+        <menuitem parent="menu_income_declaration"
+                  action="act_income_declaration"
+                  id="menu_income_tax"
+                  sequence="10"
+                  name="Income Tax"/>
+
+    </data>
+</tryton>

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+
+        <!-- ახალი ხის ხედი ვალუტებისთვის, To GEL სვეტით -->
+        <record model="ir.ui.view" id="currency_ge_currency_tree_gel">
+            <field name="model">currency.currency</field>
+            <field name="type">tree</field>
+            <field name="name">currency_ge_currency_tree_gel</field>
+            <field name="arch" type="xml">
+                <tree string="Currencies (To GEL)">
+                    <field name="name"/>
+                    <field name="symbol"/>
+                    <field name="code"/>
+                    <!-- ჩვენი Function ველი: 1 FX = X GEL -->
+                    <field name="gel_per_unit" string="To GEL"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action - რომ ეს ხედი გაიხსნას -->
+        <record model="ir.action.act_window" id="act_currency_ge_currency_tree_gel">
+            <field name="name">Currencies with To GEL</field>
+            <field name="res_model">currency.currency</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_currency_ge_currency_tree_gel_view_tree">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="currency_ge_currency_tree_gel"/>
+            <field name="act_window" ref="act_currency_ge_currency_tree_gel"/>
+        </record>
+
+        <!-- ფორმის ხედი იგივე, რაც სტანდარტულ Currency მოდულში -->
+        <record model="ir.action.act_window.view" id="act_currency_ge_currency_tree_gel_view_form">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="currency.currency_view_form"/>
+            <field name="act_window" ref="act_currency_ge_currency_tree_gel"/>
+        </record>
+
+        <!-- მენიუ: Currency–ის ქვეშ დამატებითი პუნქტი -->
+        <menuitem
+            parent="currency.menu_currency"
+            action="act_currency_ge_currency_tree_gel"
+            id="menu_currency_ge_currency_tree_gel"
+            sequence="15"/>
+    </data>
+</tryton>

@@ -1,0 +1,153 @@
+1. მომზადება – მოდულის ფოლდერი
+
+1ა. ახალ კომპიუტერზე გახსენი PowerShell და გადადი იმ საქაღალდეში, სადაც docker-compose.yml გაქვს, მაგალითად:
+
+cd C:\tryton-compose
+
+
+1ბ. შექმენი modules საქაღალდე და ჩაკოპირე იქ მოდული:
+
+mkdir .\modules
+Copy-Item -Recurse "G:\My Drive\tryton\Custom modules\currency_ge" ".\modules\currency_ge"
+
+
+(აქ "D:\USB\currency_ge" შეცვალე შენი ბილიკით.)
+
+1გ. ამის შემდეგ სტრუქტურა უნდა იყოს:
+
+C:\tryton-compose\
+  docker-compose.yml
+  trytond.conf
+  modules\
+    currency_ge\
+      __init__.py
+      __tryton__.py
+      ...
+
+2. docker-compose.yml – მოდულების volume
+
+2ა. docker-compose.yml-ში tryton სერვისთან გადაამოწმე, რომ volumes-ში წერია:
+
+services:
+  tryton:
+    image: tryton/tryton:7.6     # ან შენი ვერსია
+    container_name: tryton
+    depends_on:
+      - tryton-postgres
+    volumes:
+      - ./trytond.conf:/etc/trytond.conf
+      - ./modules:/modules          #  <<< ეს აუცილებლად უნდა იყოს
+    # დანარჩენი რაც უკვე გაქვს (ports, env და ა.შ.)
+
+3. კონტეინერების გაშვება
+
+3ა. იმავე საქაღალდეში:
+
+cd C:\tryton-compose
+docker compose up -d
+
+
+გაეშვება tryton-postgres და tryton.
+
+3ბ. შეამოწმე, რომ მოდული ჩანს კონტეინერში:
+
+docker exec -it tryton bash
+ls /modules
+
+
+თუ ყველაფერი კარგადაა, უნდა დაინახო:
+
+currency_ge
+
+
+3გ. გამოხვედი:
+
+exit
+
+4. მოდულის დაყენება ბაზაში (მიგრაცია)
+
+4ა. თუ ძველი ბაზის dump გაქვს აღდგენილი და იმ ბაზაში currency_ge უკვე გამოიყენებოდა, გააწარმოე მიგრაცია:
+
+docker exec -it tryton bash
+trytond-admin -d <DB_NAME> -u currency_ge
+exit
+
+
+მაგალითად, თუ ბაზის სახელია tr_fresh:
+
+docker exec -it tryton bash
+trytond-admin -d tr_fresh -u currency_ge
+exit
+
+
+4ბ. თუ ახალ ცარიელ ბაზას ქმნი და პირველად აყენებ:
+
+ჯერ შექმნი ბაზას (როგორც ყოველთვის – trytond-admin -d <DB_NAME> --all ან რასაც იყენებ).
+
+შემდეგ:
+
+docker exec -it tryton bash
+trytond-admin -d <DB_NAME> -u currency_ge
+exit
+
+5. მოდულის აქტივაცია Tryton UI-დან
+
+გახსენი ბრაუზერი: http://localhost:8100.
+
+Administration → Modules → Modules.
+
+ფილტრში ჩაწერე currency_ge (ან currency).
+
+მოძებნე შენი მოდული (Currency GE ან ის სახელი, რაც tryton.py-ში გაქვს).
+
+მონიშნე და დააჭირე Activate.
+
+შეინახე / Apply და დაელოდე, სანამ დაწერს, რომ წარმატებით ააქტიურა.
+
+თუ ბაზა dump-იდანაა აღდგენილი და ადრე უკვე აქტიური იყო, შეიძლება აქ უკვე Activated ეწეროს – მთავარია, სიაში ჩანდეს.
+
+6. მოკლე შემოწმება
+
+Tryton-ში:
+
+Currencies → Scheduled Rate Updates – ნახე, რომ National Bank of Georgia source არსებობს (თუ მოდული ქმნის).
+
+Currencies → Currencies – ნახე, რომ კურსების pull–ის provider-ად შეგიძლია აირჩიო შენი provider-ი (თუ ასეა ჩაფიქრებული).
+
+თუ გაქვს /usr/local/bin/update_rates_nbg.py, მერე ცალკე შეგიძლია გამოსცადო, მაგრამ მოდულის სწორად ჩაჯდომისთვის საკმარისია, რომ /modules/currency_ge ჩანს და მოდული აქტიურია.
+
+7. სვეტის დამატება და სახელების გადარქმევა – To GEL და GEL To
+
+7ა. გადი:
+
+Administration → User Interface → Views → მოძებნე Currency / Currency (Tree) (Model = Currency, View Type = Tree).
+
+7ბ. ქვემოთ Extensions ბლოკში გააკეთე ერთი ჩანაწერი და დანარჩენი არაფერი არ შეეხო.
+
+View Architecture-ში ჩაწერე ეს XML:
+
+<?xml version="1.0"?>
+<data>
+    <!-- ახალ სვეტს ამატებს code-ს შემდეგ -->
+    <xpath expr="//field[@name='code']" position="after">
+        <field name="gel_per_unit" string="To GEL" optional="1"/>
+    </xpath>
+
+    <!-- ძველი 'Current rate' სვეტის სათაურს უცვლის -->
+    <xpath expr="//field[@name='rate']" position="attributes">
+        <attribute name="string">GEL To</attribute>
+    </xpath>
+</data>
+
+
+შენიშვნა:
+
+position="replace_attributes" არ არსებობს – სწორი არის position="attributes" და შიგნით <attribute ...>.
+
+შენ უკვე ნახე, რომ პირველი xpath (To GEL სვეტი) გიმუშავდა – ახლა უბრალოდ მეორე ბლოკიც დაემატა, რომელიც მხოლოდ სათაურს ცვლის, სვეტს კი არ ცვლის.
+
+ცვლილებები შეინახე (Apply/OK) და როცა Currency სიას გახსნი, უკვე უნდა გქონდეს:
+
+სვეტი To GEL – შენი gel_per_unit
+
+სვეტი GEL To – ძველი rate, მხოლოდ გადარქმეული სახელით.
