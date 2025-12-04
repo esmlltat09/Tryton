@@ -1,295 +1,1877 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tryton>
-  <data>
-
-    <!-- Account Type Templates (Types) -->
-
-    <record model="account.account.type.template" id="account_ge.type_root">
-      <field name="name">Geo Chart Type</field>
-      <field name="sequence" eval="0"/>
-      <field name="statement">balance</field>
-      <field name="display_balance">debit-credit</field>
-    </record>
-
-    <record model="account.account.type.template" id="account_ge.type_assets">
-      <field name="name">აქტივები</field>
-      <field name="parent" ref="account_ge.type_root"/>
-      <field name="sequence" eval="10"/>
-      <field name="statement">balance</field>
-      <field name="display_balance">debit-credit</field>
-    </record>
-
-    <record model="account.account.type.template" id="account_ge.type_liabilities">
-      <field name="name">ვალდებულებები</field>
-      <field name="parent" ref="account_ge.type_root"/>
-      <field name="sequence" eval="20"/>
-      <field name="statement">balance</field>
-      <field name="display_balance">credit-debit</field>
-    </record>
-
-    <record model="account.account.type.template" id="account_ge.type_equity">
-      <field name="name">კაპიტალი</field>
-      <field name="parent" ref="account_ge.type_root"/>
-      <field name="sequence" eval="30"/>
-      <field name="statement">balance</field>
-      <field name="display_balance">credit-debit</field>
-    </record>
-
-    <record model="account.account.type.template" id="account_ge.type_income">
-      <field name="name">შემოსავლები</field>
-      <field name="parent" ref="account_ge.type_root"/>
-      <field name="sequence" eval="40"/>
-      <field name="statement">income</field>
-      <field name="display_balance">credit-debit</field>
-    </record>
-
-    <record model="account.account.type.template" id="account_ge.type_expense">
-      <field name="name">ხარჯები</field>
-      <field name="parent" ref="account_ge.type_root"/>
-      <field name="sequence" eval="50"/>
-      <field name="statement">income</field>
-      <field name="display_balance">debit-credit</field>
-    </record>
-
-    <record model="account.account.type.template" id="account_ge.type_off_balance">
-      <field name="name">Off-Balance</field>
-      <field name="parent" ref="account_ge.type_root"/>
-      <field name="sequence" eval="60"/>
-      <field name="statement">off-balance</field>
-      <field name="display_balance">debit-credit</field>
-    </record>
-
-    <!-- Detailed sub-types -->
-
-    <record model="account.account.type.template" id="account_ge.type_current_assets">
-      <field name="name">მიმდინარე აქტივები</field>
-      <field name="parent" ref="account_ge.type_assets"/>
-      <field name="sequence" eval="11"/>
-      <field name="statement">balance</field>
-      <field name="display_balance">debit-credit</field>
-    </record>
-
-    <record model="account.account.type.template" id="account_ge.type_non_current_assets">
-      <field name="name">გრძელვადიანი აქტივები</field>
-      <field name="parent" ref="account_ge.type_assets"/>
-      <field name="sequence" eval="12"/>
-      <field name="statement">balance</field>
-      <field name="display_balance">debit-credit</field>
-    </record>
-
-    <record model="account.account.type.template" id="account_ge.type_current_liabilities">
-      <field name="name">მიმდინარე ვალდებულებები</field>
-      <field name="parent" ref="account_ge.type_liabilities"/>
-      <field name="sequence" eval="21"/>
-      <field name="statement">balance</field>
-      <field name="display_balance">credit-debit</field>
-    </record>
-
-    <record model="account.account.type.template" id="account_ge.type_non_current_liabilities">
-      <field name="name">გრძელვადიანი ვალდებულებები</field>
-      <field name="parent" ref="account_ge.type_liabilities"/>
-      <field name="sequence" eval="22"/>
-      <field name="statement">balance</field>
-      <field name="display_balance">credit-debit</field>
-    </record>
-
-    <record model="account.account.type.template" id="account_ge.type_revenue_operating">
-      <field name="name">საოპერაციო შემოსავლები</field>
-      <field name="parent" ref="account_ge.type_income"/>
-      <field name="sequence" eval="41"/>
-      <field name="statement">income</field>
-      <field name="display_balance">credit-debit</field>
-    </record>
-
-    <record model="account.account.type.template" id="account_ge.type_expense_operating">
-      <field name="name">საოპერაციო ხარჯები</field>
-      <field name="parent" ref="account_ge.type_expense"/>
-      <field name="sequence" eval="51"/>
-      <field name="statement">income</field>
-      <field name="display_balance">debit-credit</field>
-    </record>
-
-    <!-- Root Account Template -->
-
-    <record model="account.account.template" id="account_ge.account_root">
-      <field name="name">Geo Chart Accounts</field>
-      <field name="code">0</field>
-      <field name="type" ref="account_ge.type_root"/>
-      <field name="reconcile" eval="False"/>
-    </record>
-
-    <!-- Level 1 group accounts -->
-
-    <record model="account.account.template" id="account_ge.account_1000">
-      <field name="name">მიმდინარე აქტივები</field>
-      <field name="code">1000</field>
-      <field name="type" ref="account_ge.type_current_assets"/>
-      <field name="parent" ref="account_ge.account_root"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_2000">
-      <field name="name">გრძელვადიანი აქტივები</field>
-      <field name="code">2000</field>
-      <field name="type" ref="account_ge.type_non_current_assets"/>
-      <field name="parent" ref="account_ge.account_root"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_3000">
-      <field name="name">მიმდინარე ვალდებულებები</field>
-      <field name="code">3000</field>
-      <field name="type" ref="account_ge.type_current_liabilities"/>
-      <field name="parent" ref="account_ge.account_root"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_4000">
-      <field name="name">გრძელვადიანი ვალდებულებები</field>
-      <field name="code">4000</field>
-      <field name="type" ref="account_ge.type_non_current_liabilities"/>
-      <field name="parent" ref="account_ge.account_root"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_5000">
-      <field name="name">საკუთარი კაპიტალი</field>
-      <field name="code">5000</field>
-      <field name="type" ref="account_ge.type_equity"/>
-      <field name="parent" ref="account_ge.account_root"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_6000">
-      <field name="name">საოპერაციო შემოსავლები</field>
-      <field name="code">6000</field>
-      <field name="type" ref="account_ge.type_revenue_operating"/>
-      <field name="parent" ref="account_ge.account_root"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_7000">
-      <field name="name">საოპერაციო ხარჯები</field>
-      <field name="code">7000</field>
-      <field name="type" ref="account_ge.type_expense_operating"/>
-      <field name="parent" ref="account_ge.account_root"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_8000">
-      <field name="name">არასაოპერაციო შემოსავლები და ხარჯები</field>
-      <field name="code">8000</field>
-      <field name="type" ref="account_ge.type_income"/>
-      <field name="parent" ref="account_ge.account_root"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_9000">
-      <field name="name">განსაკუთრებული და სხვა შემოსავლები/ხარჯები</field>
-      <field name="code">9000</field>
-      <field name="type" ref="account_ge.type_income"/>
-      <field name="parent" ref="account_ge.account_root"/>
-    </record>
-
-    <!-- Some detailed asset accounts -->
-
-    <record model="account.account.template" id="account_ge.account_1100">
-      <field name="name">ნაღდი ფული სალაროში</field>
-      <field name="code">1100</field>
-      <field name="type" ref="account_ge.type_current_assets"/>
-      <field name="parent" ref="account_ge.account_1000"/>
-      <field name="reconcile" eval="False"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_1200">
-      <field name="name">ფული საბანკო ანგარიშზე</field>
-      <field name="code">1200</field>
-      <field name="type" ref="account_ge.type_current_assets"/>
-      <field name="parent" ref="account_ge.account_1000"/>
-      <field name="reconcile" eval="False"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_1300">
-      <field name="name">მოკლევადიანი ინვესტიციები</field>
-      <field name="code">1300</field>
-      <field name="type" ref="account_ge.type_current_assets"/>
-      <field name="parent" ref="account_ge.account_1000"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_1400">
-      <field name="name">მოკლევადიანი მოთხოვნები</field>
-      <field name="code">1400</field>
-      <field name="type" ref="account_ge.type_current_assets"/>
-      <field name="parent" ref="account_ge.account_1000"/>
-      <field name="reconcile" eval="True"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_1600">
-      <field name="name">სასაქონლო-მატერიალური მარაგი</field>
-      <field name="code">1600</field>
-      <field name="type" ref="account_ge.type_current_assets"/>
-      <field name="parent" ref="account_ge.account_1000"/>
-    </record>
-
-    <!-- Liabilities & equity examples -->
-
-    <record model="account.account.template" id="account_ge.account_3100">
-      <field name="name">მოკლევადიანი ვალდებულებები</field>
-      <field name="code">3100</field>
-      <field name="type" ref="account_ge.type_current_liabilities"/>
-      <field name="parent" ref="account_ge.account_3000"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_3200">
-      <field name="name">მოკლევადიანი სესხები</field>
-      <field name="code">3200</field>
-      <field name="type" ref="account_ge.type_current_liabilities"/>
-      <field name="parent" ref="account_ge.account_3000"/>
-      <field name="reconcile" eval="True"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_3300">
-      <field name="name">საგადასახადო ვალდებულებები</field>
-      <field name="code">3300</field>
-      <field name="type" ref="account_ge.type_current_liabilities"/>
-      <field name="parent" ref="account_ge.account_3000"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_5100">
-      <field name="name">საწესდებო კაპიტალი</field>
-      <field name="code">5100</field>
-      <field name="type" ref="account_ge.type_equity"/>
-      <field name="parent" ref="account_ge.account_5000"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_5300">
-      <field name="name">მოგება/ზარალი დაგროვილი</field>
-      <field name="code">5300</field>
-      <field name="type" ref="account_ge.type_equity"/>
-      <field name="parent" ref="account_ge.account_5000"/>
-    </record>
-
-    <!-- Income & expense examples -->
-
-    <record model="account.account.template" id="account_ge.account_6110">
-      <field name="name">შემოსავალი რეალიზაციიდან</field>
-      <field name="code">6110</field>
-      <field name="type" ref="account_ge.type_revenue_operating"/>
-      <field name="parent" ref="account_ge.account_6000"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_7110">
-      <field name="name">რეალიზებული პროდუქციის თვითღირებულება</field>
-      <field name="code">7110</field>
-      <field name="type" ref="account_ge.type_expense_operating"/>
-      <field name="parent" ref="account_ge.account_7000"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_7410">
-      <field name="name">შრომის ანაზღაურება</field>
-      <field name="code">7410</field>
-      <field name="type" ref="account_ge.type_expense_operating"/>
-      <field name="parent" ref="account_ge.account_7000"/>
-    </record>
-
-    <record model="account.account.template" id="account_ge.account_7490">
-      <field name="name">სხვა საერთო ხარჯები</field>
-      <field name="code">7490</field>
-      <field name="type" ref="account_ge.type_expense_operating"/>
-      <field name="parent" ref="account_ge.account_7000"/>
-    </record>
-
-  </data>
+    <data>
+        <record model="account.account.type.template" id="type_root">
+                    <field name="name">Geo Chart Type</field>
+                        <field name="sequence" eval="0"/>
+                    <field name="statement">balance</field>
+                    <field name="display_balance">debit-credit</field>
+                </record>
+        <record model="account.account.type.template" id="type_aqtivebi">
+            <field name="name">აქტივები</field>
+            <field name="parent" ref="type_root"/>
+            <field name="sequence" eval="10"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+        </record>
+        <record model="account.account.type.template" id="type_valdebulebebi">
+            <field name="name">ვალდებულებები</field>
+            <field name="parent" ref="type_root"/>
+            <field name="sequence" eval="20"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+        </record>
+        <record model="account.account.type.template" id="type_kapitali">
+            <field name="name">კაპიტალი</field>
+            <field name="parent" ref="type_root"/>
+            <field name="sequence" eval="30"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+        </record>
+        <record model="account.account.type.template" id="type_shemosavlebi">
+            <field name="name">შემოსავლები</field>
+            <field name="parent" ref="type_root"/>
+            <field name="sequence" eval="40"/>
+            <field name="statement">income</field>
+            <field name="display_balance">credit-debit</field>
+        </record>
+        <record model="account.account.type.template" id="type_kharjebi">
+            <field name="name">ხარჯები</field>
+            <field name="parent" ref="type_root"/>
+            <field name="sequence" eval="50"/>
+            <field name="statement">income</field>
+            <field name="display_balance">debit-credit</field>
+        </record>
+        <record model="account.account.type.template" id="type_naghdi_fuli_salaroshi">
+            <field name="name">ნაღდი ფული სალაროში</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="10"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_fuli_sabanko_angarishebze">
+            <field name="name">ფული საბანკო ანგარიშებზე</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="20"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_moklevadiani_investitsiebi">
+            <field name="name">მოკლევადიანი ინვესტიციები</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="30"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_moklevadiani_motkhovnebi">
+            <field name="name">მოკლევადიანი მოთხოვნები</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="40"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+            <field name="receivable" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_moklevadiani_satamasuqo_motkhovnebi">
+            <field name="name">მოკლევადიანი სათამასუქო მოთხოვნები</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="50"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_sasaqonlo_materialuri_maragi">
+            <field name="name">სასაქონლო-მატერიალური მარაგი</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="60"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+            <field name="stock" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_tsinastsar_gatseuli_kharjebi">
+            <field name="name">წინასწარ გაწეული ხარჯები</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="70"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_daritskhuli_motkhovnebi">
+            <field name="name">დარიცხული მოთხოვნები</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="80"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_skhva_mimdinare_aqtivebi">
+            <field name="name">სხვა მიმდინარე აქტივები</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="90"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_dziritadi_sashualebebi">
+            <field name="name">ძირითადი საშუალებები</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="100"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+            <field name="fixed_asset" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_dziritadi_sashualebebis_tsveta">
+            <field name="name">ძირითადი საშუალებების ცვეთა</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="110"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+            <field name="fixed_asset" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_grdzelvadiani_motkhovnebi">
+            <field name="name">გრძელვადიანი მოთხოვნები</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="120"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_grdzelvadiani_investitsiebi">
+            <field name="name">გრძელვადიანი ინვესტიციები</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="130"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_aramaterialuri_aqtivebi">
+            <field name="name">არამატერიალური აქტივები</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="140"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+            <field name="fixed_asset" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_aramaterialuri_aqtivebis_amortizatsia">
+            <field name="name">არამატერიალური აქტივების ამორტიზაცია</field>
+            <field name="parent" ref="type_aqtivebi"/>
+            <field name="sequence" eval="150"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="assets" eval="True"/>
+            <field name="fixed_asset" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_moklevadiani_valdebulebebi">
+            <field name="name">მოკლევადიანი ვალდებულებები</field>
+            <field name="parent" ref="type_valdebulebebi"/>
+            <field name="sequence" eval="160"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="payable" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_moklevadiani_seskhebi">
+            <field name="name">მოკლევადიანი სესხები</field>
+            <field name="parent" ref="type_valdebulebebi"/>
+            <field name="sequence" eval="170"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="payable" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_sagadasakhado_valdebulebebi">
+            <field name="name">საგადასახადო ვალდებულებები</field>
+            <field name="parent" ref="type_valdebulebebi"/>
+            <field name="sequence" eval="180"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="payable" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_daritskhuli_valdebulebebi">
+            <field name="name">დარიცხული ვალდებულებები</field>
+            <field name="parent" ref="type_valdebulebebi"/>
+            <field name="sequence" eval="190"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="payable" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_grdzelvadiani_saseskho_valdebulebebi">
+            <field name="name">გრძელვადიანი სასესხო ვალდებულებები</field>
+            <field name="parent" ref="type_valdebulebebi"/>
+            <field name="sequence" eval="200"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="payable" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_gadavadebuli_gadasakhadebis__da_skhva_grdzelvadian">
+            <field name="name">გადავადებული გადასახადების  და სხვა გრძელვადიანი ვალდებულებები</field>
+            <field name="parent" ref="type_valdebulebebi"/>
+            <field name="sequence" eval="210"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="payable" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_anaritskhebi">
+            <field name="name">ანარიცხები</field>
+            <field name="parent" ref="type_valdebulebebi"/>
+            <field name="sequence" eval="220"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="payable" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_gadavadebuli_shemosavali">
+            <field name="name">გადავადებული შემოსავალი</field>
+            <field name="parent" ref="type_valdebulebebi"/>
+            <field name="sequence" eval="230"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="payable" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_satsesdebo_kapitali">
+            <field name="name">საწესდებო კაპიტალი</field>
+            <field name="parent" ref="type_kapitali"/>
+            <field name="sequence" eval="240"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+        </record>
+        <record model="account.account.type.template" id="type_partniorta_kapitali_shezghuduli_qonebis_pasukhismg">
+            <field name="name">პარტნიორთა კაპიტალი შეზღუდული ქონების პასუხისმგებლობის არმქონე საზოგადოება</field>
+            <field name="parent" ref="type_kapitali"/>
+            <field name="sequence" eval="250"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+        </record>
+        <record model="account.account.type.template" id="type_mogeba__zarali">
+            <field name="name">მოგება/ ზარალი</field>
+            <field name="parent" ref="type_kapitali"/>
+            <field name="sequence" eval="260"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+        </record>
+        <record model="account.account.type.template" id="type_rezervebi_da_dafinanseba">
+            <field name="name">რეზერვები და დაფინანსება</field>
+            <field name="parent" ref="type_kapitali"/>
+            <field name="sequence" eval="270"/>
+            <field name="statement">balance</field>
+            <field name="display_balance">credit-debit</field>
+        </record>
+        <record model="account.account.type.template" id="type_saoperatsio_shemosavlebi">
+            <field name="name">საოპერაციო შემოსავლები</field>
+            <field name="parent" ref="type_shemosavlebi"/>
+            <field name="sequence" eval="280"/>
+            <field name="statement">income</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="revenue" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_realizebuli_produqtsiis_tvitghirebuleba_produqtsii">
+            <field name="name">რეალიზებული პროდუქციის თვითღირებულება (პროდუქციის მწარმოებელთა და მომსახურების სფეროს საწარმოებისთვის)</field>
+            <field name="parent" ref="type_kharjebi"/>
+            <field name="sequence" eval="290"/>
+            <field name="statement">income</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="expense" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_realizirebuli_saqonlis_tvitghirebuleba_savachro_sa">
+            <field name="name">რეალიზირებული საქონლის თვითღირებულება (სავაჭრო საწარმოებისთვის)</field>
+            <field name="parent" ref="type_kharjebi"/>
+            <field name="sequence" eval="300"/>
+            <field name="statement">income</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="expense" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_mitsodebis_kharjebi">
+            <field name="name">მიწოდების ხარჯები</field>
+            <field name="parent" ref="type_kharjebi"/>
+            <field name="sequence" eval="310"/>
+            <field name="statement">income</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="expense" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_saerto_da_administratsiuli_kharjebi">
+            <field name="name">საერთო და ადმინისტრაციული ხარჯები</field>
+            <field name="parent" ref="type_kharjebi"/>
+            <field name="sequence" eval="320"/>
+            <field name="statement">income</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="expense" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_arasaoperatsio_shemosavlebi">
+            <field name="name">არასაოპერაციო შემოსავლები</field>
+            <field name="parent" ref="type_shemosavlebi"/>
+            <field name="sequence" eval="330"/>
+            <field name="statement">income</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="revenue" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_arasaoperatsio_kharjebi">
+            <field name="name">არასაოპერაციო ხარჯები</field>
+            <field name="parent" ref="type_kharjebi"/>
+            <field name="sequence" eval="340"/>
+            <field name="statement">income</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="expense" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_gansakutrebuli_shemosavlebi">
+            <field name="name">განსაკუთრებული შემოსავლები</field>
+            <field name="parent" ref="type_shemosavlebi"/>
+            <field name="sequence" eval="350"/>
+            <field name="statement">income</field>
+            <field name="display_balance">credit-debit</field>
+            <field name="revenue" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_gansakutrebuli_kharjebi">
+            <field name="name">განსაკუთრებული ხარჯები</field>
+            <field name="parent" ref="type_kharjebi"/>
+            <field name="sequence" eval="355"/>
+            <field name="statement">income</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="expense" eval="True"/>
+        </record>
+        <record model="account.account.type.template" id="type_skhva_kharjebi">
+            <field name="name">სხვა ხარჯები</field>
+            <field name="parent" ref="type_kharjebi"/>
+            <field name="sequence" eval="360"/>
+            <field name="statement">income</field>
+            <field name="display_balance">debit-credit</field>
+            <field name="expense" eval="True"/>
+        </record>
+        <record model="account.account.template" id="chart_ge">
+            <field name="name">Geo Chart Accounts</field>
+            <field name="type" ref="type_root"/>
+        </record>
+        <record model="account.account.template" id="a_1000">
+            <field name="name">მიმდინარე აქტივები</field>
+            <field name="code">1000</field>
+            <field name="parent" ref="chart_ge"/>
+        </record>
+        <record model="account.account.template" id="a_2000">
+            <field name="name">გრძელვადიანი აქტივები</field>
+            <field name="code">2000</field>
+            <field name="parent" ref="chart_ge"/>
+        </record>
+        <record model="account.account.template" id="a_3000">
+            <field name="name">მიმდინარე ვალდებულებები</field>
+            <field name="code">3000</field>
+            <field name="parent" ref="chart_ge"/>
+        </record>
+        <record model="account.account.template" id="a_4000">
+            <field name="name">გრძელვადიანი ვალდებულებები</field>
+            <field name="code">4000</field>
+            <field name="parent" ref="chart_ge"/>
+        </record>
+        <record model="account.account.template" id="a_5000">
+            <field name="name">საკუთარი კაპიტალი</field>
+            <field name="code">5000</field>
+            <field name="parent" ref="chart_ge"/>
+        </record>
+        <record model="account.account.template" id="a_6000">
+            <field name="name">საოპერაციო შემოსავლები</field>
+            <field name="code">6000</field>
+            <field name="parent" ref="chart_ge"/>
+        </record>
+        <record model="account.account.template" id="a_7000">
+            <field name="name">საოპერაციო ხარჯები</field>
+            <field name="code">7000</field>
+            <field name="parent" ref="chart_ge"/>
+        </record>
+        <record model="account.account.template" id="a_8000">
+            <field name="name">არასაოპრეაციო შემოსავლები და ხარჯები</field>
+            <field name="code">8000</field>
+            <field name="parent" ref="chart_ge"/>
+        </record>
+        <record model="account.account.template" id="a_9000">
+            <field name="name">განსაკუთრებული და სხვა შემოსავლები და ხარჯები</field>
+            <field name="code">9000</field>
+            <field name="parent" ref="chart_ge"/>
+        </record>
+        <record model="account.account.template" id="a_1100">
+            <field name="name">ნაღდი ფული სალაროში</field>
+            <field name="code">1100</field>
+            <field name="parent" ref="a_1000"/>
+        </record>
+        <record model="account.account.template" id="a_1200">
+            <field name="name">ფული საბანკო ანგარიშზე</field>
+            <field name="code">1200</field>
+            <field name="parent" ref="a_1000"/>
+        </record>
+        <record model="account.account.template" id="a_1300">
+            <field name="name">მოკლევადიანი ინვესტიციები</field>
+            <field name="code">1300</field>
+            <field name="parent" ref="a_1000"/>
+        </record>
+        <record model="account.account.template" id="a_1400">
+            <field name="name">მოკლევადიანი მოთხოვნები</field>
+            <field name="code">1400</field>
+            <field name="parent" ref="a_1000"/>
+        </record>
+        <record model="account.account.template" id="a_1500">
+            <field name="name">მოკლევადიანი სათამასუქო მოთხოვნები</field>
+            <field name="code">1500</field>
+            <field name="parent" ref="a_1000"/>
+        </record>
+        <record model="account.account.template" id="a_1600">
+            <field name="name">სასაქონლო-მატერიალური მარაგი</field>
+            <field name="code">1600</field>
+            <field name="parent" ref="a_1000"/>
+        </record>
+        <record model="account.account.template" id="a_1700">
+            <field name="name">წინასწარ გაწეული ხარჯები</field>
+            <field name="code">1700</field>
+            <field name="parent" ref="a_1000"/>
+        </record>
+        <record model="account.account.template" id="a_1800">
+            <field name="name">დარიცხული მოთხოვნები</field>
+            <field name="code">1800</field>
+            <field name="parent" ref="a_1000"/>
+        </record>
+        <record model="account.account.template" id="a_1900">
+            <field name="name">სხვა მიმდინარე აქტივები</field>
+            <field name="code">1900</field>
+            <field name="parent" ref="a_1000"/>
+        </record>
+        <record model="account.account.template" id="a_2100">
+            <field name="name">ძირითადი საშუალებები</field>
+            <field name="code">2100</field>
+            <field name="parent" ref="a_2000"/>
+        </record>
+        <record model="account.account.template" id="a_2200">
+            <field name="name">ძირითადი საშუალებების ცვეთა</field>
+            <field name="code">2200</field>
+            <field name="parent" ref="a_2000"/>
+        </record>
+        <record model="account.account.template" id="a_2300">
+            <field name="name">გრძელვადიანი მოთხოვნები</field>
+            <field name="code">2300</field>
+            <field name="parent" ref="a_2000"/>
+        </record>
+        <record model="account.account.template" id="a_2400">
+            <field name="name">გრძელვადიანი ინვესტიციები</field>
+            <field name="code">2400</field>
+            <field name="parent" ref="a_2000"/>
+        </record>
+        <record model="account.account.template" id="a_2500">
+            <field name="name">არამატერიალური აქტივები</field>
+            <field name="code">2500</field>
+            <field name="parent" ref="a_2000"/>
+        </record>
+        <record model="account.account.template" id="a_2600">
+            <field name="name">არამატერიალური აქტივების ამორტიზაცია</field>
+            <field name="code">2600</field>
+            <field name="parent" ref="a_2000"/>
+        </record>
+        <record model="account.account.template" id="a_3100">
+            <field name="name">მოკლევადიანი ვალდებულებები</field>
+            <field name="code">3100</field>
+            <field name="parent" ref="a_3000"/>
+        </record>
+        <record model="account.account.template" id="a_3200">
+            <field name="name">მოკლევადიანი სესხები</field>
+            <field name="code">3200</field>
+            <field name="parent" ref="a_3000"/>
+        </record>
+        <record model="account.account.template" id="a_3300">
+            <field name="name">საგადასახადო ვალდებულებები</field>
+            <field name="code">3300</field>
+            <field name="parent" ref="a_3000"/>
+        </record>
+        <record model="account.account.template" id="a_3400">
+            <field name="name">დარიცხული ვალდებულებები</field>
+            <field name="code">3400</field>
+            <field name="parent" ref="a_3000"/>
+        </record>
+        <record model="account.account.template" id="a_4100">
+            <field name="name">გრძელვადიანი სასესხო ვალდებულებები</field>
+            <field name="code">4100</field>
+            <field name="parent" ref="a_4000"/>
+        </record>
+        <record model="account.account.template" id="a_4200">
+            <field name="name">გადავადებული გადასახადები და სხვა გრძელვადიანი ვალდებულებები</field>
+            <field name="code">4200</field>
+            <field name="parent" ref="a_4000"/>
+        </record>
+        <record model="account.account.template" id="a_4300">
+            <field name="name">ანარიცხები</field>
+            <field name="code">4300</field>
+            <field name="parent" ref="a_4000"/>
+        </record>
+        <record model="account.account.template" id="a_4400">
+            <field name="name">გადავადებული შემოსავალი</field>
+            <field name="code">4400</field>
+            <field name="parent" ref="a_4000"/>
+        </record>
+        <record model="account.account.template" id="a_5100">
+            <field name="name">საწესდებო კაპიტალი</field>
+            <field name="code">5100</field>
+            <field name="parent" ref="a_5000"/>
+        </record>
+        <record model="account.account.template" id="a_5200">
+            <field name="name">პარტნიორთა კაპიტალი</field>
+            <field name="code">5200</field>
+            <field name="parent" ref="a_5000"/>
+        </record>
+        <record model="account.account.template" id="a_5300">
+            <field name="name">მოგება/ზარალი</field>
+            <field name="code">5300</field>
+            <field name="parent" ref="a_5000"/>
+        </record>
+        <record model="account.account.template" id="a_5400">
+            <field name="name">რეზერვები და დაფინანსება</field>
+            <field name="code">5400</field>
+            <field name="parent" ref="a_5000"/>
+        </record>
+        <record model="account.account.template" id="a_6100">
+            <field name="name">საოპერაციო შემოსავლები</field>
+            <field name="code">6100</field>
+            <field name="parent" ref="a_6000"/>
+        </record>
+        <record model="account.account.template" id="a_7100">
+            <field name="name">რეალიზებული პროდუქციის თვითღირებულება</field>
+            <field name="code">7100</field>
+            <field name="parent" ref="a_7000"/>
+        </record>
+        <record model="account.account.template" id="a_7200">
+            <field name="name">რეალიზებული საქონლის თვითღირებულება</field>
+            <field name="code">7200</field>
+            <field name="parent" ref="a_7000"/>
+        </record>
+        <record model="account.account.template" id="a_7300">
+            <field name="name">მიწოდების ხარჯები</field>
+            <field name="code">7300</field>
+            <field name="parent" ref="a_7000"/>
+        </record>
+        <record model="account.account.template" id="a_7400">
+            <field name="name">საერთო და ადმინისტრაციული ხარჯები</field>
+            <field name="code">7400</field>
+            <field name="parent" ref="a_7000"/>
+        </record>
+        <record model="account.account.template" id="a_8100">
+            <field name="name">არასაოპერაციო შემოსავლები</field>
+            <field name="code">8100</field>
+            <field name="parent" ref="a_8000"/>
+        </record>
+        <record model="account.account.template" id="a_8200">
+            <field name="name">არასაოპერაციო ხარჯები</field>
+            <field name="code">8200</field>
+            <field name="parent" ref="a_8000"/>
+        </record>
+        <record model="account.account.template" id="a_9100">
+            <field name="name">განსაკუთრებული შემოსავლები და ხარჯები</field>
+            <field name="code">9100</field>
+            <field name="parent" ref="a_9000"/>
+        </record>
+        <record model="account.account.template" id="a_9200">
+            <field name="name">სხვა ხარჯები</field>
+            <field name="code">9200</field>
+            <field name="parent" ref="a_9000"/>
+        </record>
+        <record model="account.account.template" id="a_1110">
+            <field name="name">ნაღდი ფული ეროვნულ ვალუტაში</field>
+            <field name="code">1110</field>
+            <field name="parent" ref="a_1100"/>
+            <field name="type" ref="type_naghdi_fuli_salaroshi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1120">
+            <field name="name">ნაღდი ფული უცხოურ ვალუტაში</field>
+            <field name="code">1120</field>
+            <field name="parent" ref="a_1100"/>
+            <field name="type" ref="type_naghdi_fuli_salaroshi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1210">
+            <field name="name">ეროვნული ვალუტა რეზიდენტ ბანკში</field>
+            <field name="code">1210</field>
+            <field name="parent" ref="a_1200"/>
+            <field name="type" ref="type_fuli_sabanko_angarishebze"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1220">
+            <field name="name">უცხოური ვალუტა რეზიდენტ ბანკში</field>
+            <field name="code">1220</field>
+            <field name="parent" ref="a_1200"/>
+            <field name="type" ref="type_fuli_sabanko_angarishebze"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1230">
+            <field name="name">უცხოური ვალუტა არარეზიდენტ ბანკში</field>
+            <field name="code">1230</field>
+            <field name="parent" ref="a_1200"/>
+            <field name="type" ref="type_fuli_sabanko_angarishebze"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1290">
+            <field name="name">ფული სხვა საბანკო ანგარიშებზე</field>
+            <field name="code">1290</field>
+            <field name="parent" ref="a_1200"/>
+            <field name="type" ref="type_fuli_sabanko_angarishebze"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1310">
+            <field name="name">მოკლევადიანი ინვესტიციები საწარმოთა ფასიან ქაღალდებში</field>
+            <field name="code">1310</field>
+            <field name="parent" ref="a_1300"/>
+            <field name="type" ref="type_moklevadiani_investitsiebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1320">
+            <field name="name">მოკლევადიანი ინვესტიციები სახელმწიფო ფასიან ქაღალდებში</field>
+            <field name="code">1320</field>
+            <field name="parent" ref="a_1300"/>
+            <field name="type" ref="type_moklevadiani_investitsiebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1330">
+            <field name="name">გრძელვადიანი ინვესტიციების მიმდინარე წილი</field>
+            <field name="code">1330</field>
+            <field name="parent" ref="a_1300"/>
+            <field name="type" ref="type_moklevadiani_investitsiebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1340">
+            <field name="name">კაპიტალში შენატანი ან აქციის/წილის შეძენა</field>
+            <field name="code">1340</field>
+            <field name="parent" ref="a_1300"/>
+            <field name="type" ref="type_moklevadiani_investitsiebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1390">
+            <field name="name">სხვა მოკლევადიანი ინვესტიციები</field>
+            <field name="code">1390</field>
+            <field name="parent" ref="a_1300"/>
+            <field name="type" ref="type_moklevadiani_investitsiebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1410">
+            <field name="name">მოთხოვნები მიწოდებიდან და მომსახურებიდან</field>
+            <field name="code">1410</field>
+            <field name="parent" ref="a_1400"/>
+            <field name="type" ref="type_moklevadiani_motkhovnebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1415">
+            <field name="name">საეჭვო მოთხოვნების კორექტირება</field>
+            <field name="code">1415</field>
+            <field name="parent" ref="a_1400"/>
+            <field name="type" ref="type_moklevadiani_motkhovnebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1420">
+            <field name="name">მოთხოვნები მეკავშირე საწარმოს მიმართ</field>
+            <field name="code">1420</field>
+            <field name="parent" ref="a_1400"/>
+            <field name="type" ref="type_moklevadiani_motkhovnebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1430">
+            <field name="name">მოთხოვნები საწარმოს პერსონალის მიმართ</field>
+            <field name="code">1430</field>
+            <field name="parent" ref="a_1400"/>
+            <field name="type" ref="type_moklevadiani_motkhovnebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1440">
+            <field name="name">მოთხოვნები ხელმძღვანელებისა და სამეთვალყურეო ორგანოების წევრების მიმართ</field>
+            <field name="code">1440</field>
+            <field name="parent" ref="a_1400"/>
+            <field name="type" ref="type_moklevadiani_motkhovnebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1450">
+            <field name="name">მოთხოვნები პარტნიორებზე გაცემული სესხიდან</field>
+            <field name="code">1450</field>
+            <field name="parent" ref="a_1400"/>
+            <field name="type" ref="type_moklevadiani_motkhovnebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1451">
+            <field name="name">გაცემული სესხები</field>
+            <field name="code">1451</field>
+            <field name="parent" ref="a_1400"/>
+            <field name="type" ref="type_moklevadiani_motkhovnebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1460">
+            <field name="name">კაპიტალის შევსებაზე პარტნიორების გრძელვადიანი მოთხოვნების მიმდენარე ნაწილი</field>
+            <field name="code">1460</field>
+            <field name="parent" ref="a_1400"/>
+            <field name="type" ref="type_moklevadiani_motkhovnebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1470">
+            <field name="name">გრძელვადიანი მოთხოვნების მიმდინარე ნაწილი</field>
+            <field name="code">1470</field>
+            <field name="parent" ref="a_1400"/>
+            <field name="type" ref="type_moklevadiani_motkhovnebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1480">
+            <field name="name">მომწოდებელზე გადახდილი ავანსები</field>
+            <field name="code">1480</field>
+            <field name="parent" ref="a_1400"/>
+            <field name="type" ref="type_moklevadiani_motkhovnebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1490">
+            <field name="name">სხვა მოთხოვნები</field>
+            <field name="code">1490</field>
+            <field name="parent" ref="a_1400"/>
+            <field name="type" ref="type_moklevadiani_motkhovnebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1510">
+            <field name="name">მიღებული მოკლევადიანი თამასუქები</field>
+            <field name="code">1510</field>
+            <field name="parent" ref="a_1500"/>
+            <field name="type" ref="type_moklevadiani_satamasuqo_motkhovnebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1520">
+            <field name="name">მიღებული გრძელვადიანი თამასუქების მიმდინარე ნაწილი</field>
+            <field name="code">1520</field>
+            <field name="parent" ref="a_1500"/>
+            <field name="type" ref="type_moklevadiani_satamasuqo_motkhovnebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_1610">
+            <field name="name">საქონელი</field>
+            <field name="code">1610</field>
+            <field name="parent" ref="a_1600"/>
+            <field name="type" ref="type_sasaqonlo_materialuri_maragi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1620">
+            <field name="name">ნედლეული და მასალები</field>
+            <field name="code">1620</field>
+            <field name="parent" ref="a_1600"/>
+            <field name="type" ref="type_sasaqonlo_materialuri_maragi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1630">
+            <field name="name">დაუმთავრებელი წარმოება</field>
+            <field name="code">1630</field>
+            <field name="parent" ref="a_1600"/>
+            <field name="type" ref="type_sasaqonlo_materialuri_maragi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1640">
+            <field name="name">მზა პროდუქცია</field>
+            <field name="code">1640</field>
+            <field name="parent" ref="a_1600"/>
+            <field name="type" ref="type_sasaqonlo_materialuri_maragi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1690">
+            <field name="name">სხვა სასაქონლო-მატერიალური მარაგი</field>
+            <field name="code">1690</field>
+            <field name="parent" ref="a_1600"/>
+            <field name="type" ref="type_sasaqonlo_materialuri_maragi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1710">
+            <field name="name">წინასწარ ანაზღაურებული მომსახურება</field>
+            <field name="code">1710</field>
+            <field name="parent" ref="a_1700"/>
+            <field name="type" ref="type_tsinastsar_gatseuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1720">
+            <field name="name">წინასწარ გადახდილი საიჯარო ქირა</field>
+            <field name="code">1720</field>
+            <field name="parent" ref="a_1700"/>
+            <field name="type" ref="type_tsinastsar_gatseuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1790">
+            <field name="name">სხვა წინასწარ გაწეული ხარჯები</field>
+            <field name="code">1790</field>
+            <field name="parent" ref="a_1700"/>
+            <field name="type" ref="type_tsinastsar_gatseuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1810">
+            <field name="name">მისაღები დივიდენდები</field>
+            <field name="code">1810</field>
+            <field name="parent" ref="a_1800"/>
+            <field name="type" ref="type_daritskhuli_motkhovnebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1820">
+            <field name="name">მისაღები პროცენტები</field>
+            <field name="code">1820</field>
+            <field name="parent" ref="a_1800"/>
+            <field name="type" ref="type_daritskhuli_motkhovnebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1890">
+            <field name="name">სხვა დარიცხული მოთხოვნები</field>
+            <field name="code">1890</field>
+            <field name="parent" ref="a_1800"/>
+            <field name="type" ref="type_daritskhuli_motkhovnebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_1910">
+            <field name="name">სხვა მიმდინარე აქტივები</field>
+            <field name="code">1910</field>
+            <field name="parent" ref="a_1900"/>
+            <field name="type" ref="type_skhva_mimdinare_aqtivebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2110">
+            <field name="name">მიწის ნაკვეთები</field>
+            <field name="code">2110</field>
+            <field name="parent" ref="a_2100"/>
+            <field name="type" ref="type_dziritadi_sashualebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2120">
+            <field name="name">დაუმთავრებელი მშენებლობა</field>
+            <field name="code">2120</field>
+            <field name="parent" ref="a_2100"/>
+            <field name="type" ref="type_dziritadi_sashualebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2130">
+            <field name="name">შენობები</field>
+            <field name="code">2130</field>
+            <field name="parent" ref="a_2100"/>
+            <field name="type" ref="type_dziritadi_sashualebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2140">
+            <field name="name">ნაგებობები</field>
+            <field name="code">2140</field>
+            <field name="parent" ref="a_2100"/>
+            <field name="type" ref="type_dziritadi_sashualebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2150">
+            <field name="name">მანქანა-დანადგარები</field>
+            <field name="code">2150</field>
+            <field name="parent" ref="a_2100"/>
+            <field name="type" ref="type_dziritadi_sashualebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2160">
+            <field name="name">ოფისის აღჭურვილობა</field>
+            <field name="code">2160</field>
+            <field name="parent" ref="a_2100"/>
+            <field name="type" ref="type_dziritadi_sashualebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2170">
+            <field name="name">ავეჯი და ინვენტარი</field>
+            <field name="code">2170</field>
+            <field name="parent" ref="a_2100"/>
+            <field name="type" ref="type_dziritadi_sashualebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2180">
+            <field name="name">სატრანსპორტო საშუალებები</field>
+            <field name="code">2180</field>
+            <field name="parent" ref="a_2100"/>
+            <field name="type" ref="type_dziritadi_sashualebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2190">
+            <field name="name">იჯარით აღებული ქონების კეთილმოწყობა</field>
+            <field name="code">2190</field>
+            <field name="parent" ref="a_2100"/>
+            <field name="type" ref="type_dziritadi_sashualebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2230">
+            <field name="name">შენობების ცვეთა</field>
+            <field name="code">2230</field>
+            <field name="parent" ref="a_2200"/>
+            <field name="type" ref="type_dziritadi_sashualebebis_tsveta"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2240">
+            <field name="name">ნაგებობების ცვეთა</field>
+            <field name="code">2240</field>
+            <field name="parent" ref="a_2200"/>
+            <field name="type" ref="type_dziritadi_sashualebebis_tsveta"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2250">
+            <field name="name">მანქანა-დანადგარების ცვეთა</field>
+            <field name="code">2250</field>
+            <field name="parent" ref="a_2200"/>
+            <field name="type" ref="type_dziritadi_sashualebebis_tsveta"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2260">
+            <field name="name">ოფისის აღჭურვილობის ცვეთა</field>
+            <field name="code">2260</field>
+            <field name="parent" ref="a_2200"/>
+            <field name="type" ref="type_dziritadi_sashualebebis_tsveta"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2270">
+            <field name="name">ავეჯის და სხვა ინვენტარის ცვეთა</field>
+            <field name="code">2270</field>
+            <field name="parent" ref="a_2200"/>
+            <field name="type" ref="type_dziritadi_sashualebebis_tsveta"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2280">
+            <field name="name">სატრანსპორტო საშუალებების ცვეთა</field>
+            <field name="code">2280</field>
+            <field name="parent" ref="a_2200"/>
+            <field name="type" ref="type_dziritadi_sashualebebis_tsveta"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2290">
+            <field name="name">იჯარით აღებული ქონების კეთილმოწყობის ცვეთა</field>
+            <field name="code">2290</field>
+            <field name="parent" ref="a_2200"/>
+            <field name="type" ref="type_dziritadi_sashualebebis_tsveta"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2310">
+            <field name="name">მიღებული გრძელვადიანი თამასუქები</field>
+            <field name="code">2310</field>
+            <field name="parent" ref="a_2300"/>
+            <field name="type" ref="type_grdzelvadiani_motkhovnebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2320">
+            <field name="name">ფინანსურ იჯარასთან დაკავშირებული მოთხოვნები</field>
+            <field name="code">2320</field>
+            <field name="parent" ref="a_2300"/>
+            <field name="type" ref="type_grdzelvadiani_motkhovnebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2330">
+            <field name="name">მოთხოვნები საწესდებო კაპიტალის შევსებაზე</field>
+            <field name="code">2330</field>
+            <field name="parent" ref="a_2300"/>
+            <field name="type" ref="type_grdzelvadiani_motkhovnebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2340">
+            <field name="name">გადავადებული საგადასახადო აქტივები</field>
+            <field name="code">2340</field>
+            <field name="parent" ref="a_2300"/>
+            <field name="type" ref="type_grdzelvadiani_motkhovnebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2390">
+            <field name="name">სხვა გრძელვადიანი მოთხოვნები</field>
+            <field name="code">2390</field>
+            <field name="parent" ref="a_2300"/>
+            <field name="type" ref="type_grdzelvadiani_motkhovnebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2410">
+            <field name="name">გრძელვადიანი ინვესტიციები საწარმოთა ფასიან ქაღალდებში</field>
+            <field name="code">2410</field>
+            <field name="parent" ref="a_2400"/>
+            <field name="type" ref="type_grdzelvadiani_investitsiebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2420">
+            <field name="name">გრძელვადიანი ინვესტიციები სახელმწიფო ფასიან ქაღალდებში</field>
+            <field name="code">2420</field>
+            <field name="parent" ref="a_2400"/>
+            <field name="type" ref="type_grdzelvadiani_investitsiebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2430">
+            <field name="name">მონაწილეობა სხვა საზოგადოებაში</field>
+            <field name="code">2430</field>
+            <field name="parent" ref="a_2400"/>
+            <field name="type" ref="type_grdzelvadiani_investitsiebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2490">
+            <field name="name">სხვა გრძელვადიანი ინვესტიციები</field>
+            <field name="code">2490</field>
+            <field name="parent" ref="a_2400"/>
+            <field name="type" ref="type_grdzelvadiani_investitsiebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2510">
+            <field name="name">ლიცენზიები</field>
+            <field name="code">2510</field>
+            <field name="parent" ref="a_2500"/>
+            <field name="type" ref="type_aramaterialuri_aqtivebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2520">
+            <field name="name">კონცესიები</field>
+            <field name="code">2520</field>
+            <field name="parent" ref="a_2500"/>
+            <field name="type" ref="type_aramaterialuri_aqtivebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2530">
+            <field name="name">პატენტები</field>
+            <field name="code">2530</field>
+            <field name="parent" ref="a_2500"/>
+            <field name="type" ref="type_aramaterialuri_aqtivebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2540">
+            <field name="name">გუდვილი</field>
+            <field name="code">2540</field>
+            <field name="parent" ref="a_2500"/>
+            <field name="type" ref="type_aramaterialuri_aqtivebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2590">
+            <field name="name">სხვა არამატერიალური აქტივები</field>
+            <field name="code">2590</field>
+            <field name="parent" ref="a_2500"/>
+            <field name="type" ref="type_aramaterialuri_aqtivebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2610">
+            <field name="name">ლიცენზიების ამორტიზაცია</field>
+            <field name="code">2610</field>
+            <field name="parent" ref="a_2600"/>
+            <field name="type" ref="type_aramaterialuri_aqtivebis_amortizatsia"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2620">
+            <field name="name">კონცესიების ამორტიზაცია</field>
+            <field name="code">2620</field>
+            <field name="parent" ref="a_2600"/>
+            <field name="type" ref="type_aramaterialuri_aqtivebis_amortizatsia"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2630">
+            <field name="name">პატენტების ამორტიზაცია</field>
+            <field name="code">2630</field>
+            <field name="parent" ref="a_2600"/>
+            <field name="type" ref="type_aramaterialuri_aqtivebis_amortizatsia"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2640">
+            <field name="name">გუდვილის ამორტიზაცია</field>
+            <field name="code">2640</field>
+            <field name="parent" ref="a_2600"/>
+            <field name="type" ref="type_aramaterialuri_aqtivebis_amortizatsia"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_2690">
+            <field name="name">სხვა არამატერიალური აქტივების ამორტიზაცია</field>
+            <field name="code">2690</field>
+            <field name="parent" ref="a_2600"/>
+            <field name="type" ref="type_aramaterialuri_aqtivebis_amortizatsia"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3110">
+            <field name="name">მოწოდებიდან და მომსახურებიდან წარმოქმნილი ვალდებულებები</field>
+            <field name="code">3110</field>
+            <field name="parent" ref="a_3100"/>
+            <field name="type" ref="type_moklevadiani_valdebulebebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_3120">
+            <field name="name">მიღებული ავანსები</field>
+            <field name="code">3120</field>
+            <field name="parent" ref="a_3100"/>
+            <field name="type" ref="type_moklevadiani_valdebulebebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_3130">
+            <field name="name">გადასახდელი ხელფასები</field>
+            <field name="code">3130</field>
+            <field name="parent" ref="a_3100"/>
+            <field name="type" ref="type_moklevadiani_valdebulebebi"/>
+            <field name="reconcile" eval="True"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_3140">
+            <field name="name">როიალტი</field>
+            <field name="code">3140</field>
+            <field name="parent" ref="a_3100"/>
+            <field name="type" ref="type_moklevadiani_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_3150">
+            <field name="name">საკომისიო გადასახდელები</field>
+            <field name="code">3150</field>
+            <field name="parent" ref="a_3100"/>
+            <field name="type" ref="type_moklevadiani_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_3160">
+            <field name="name">ვალდებულებები საწარმოს პერსონალის წინაშე</field>
+            <field name="code">3160</field>
+            <field name="parent" ref="a_3100"/>
+            <field name="type" ref="type_moklevadiani_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_3170">
+            <field name="name">ვალდებულებები მეკავშირე საწარმოების წინაშე</field>
+            <field name="code">3170</field>
+            <field name="parent" ref="a_3100"/>
+            <field name="type" ref="type_moklevadiani_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_3190">
+            <field name="name">სხვა მოკლევადიანი ვალდებულებები</field>
+            <field name="code">3190</field>
+            <field name="parent" ref="a_3100"/>
+            <field name="type" ref="type_moklevadiani_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="True"/>
+        </record>
+        <record model="account.account.template" id="a_3210">
+            <field name="name">მოკლევადიანი სესხები</field>
+            <field name="code">3210</field>
+            <field name="parent" ref="a_3200"/>
+            <field name="type" ref="type_moklevadiani_seskhebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3220">
+            <field name="name">სესხები პარტნიორებისაგან</field>
+            <field name="code">3220</field>
+            <field name="parent" ref="a_3200"/>
+            <field name="type" ref="type_moklevadiani_seskhebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3230">
+            <field name="name">გრძელვადიანი სესხების მიმდინარე ნაწილი</field>
+            <field name="code">3230</field>
+            <field name="parent" ref="a_3200"/>
+            <field name="type" ref="type_moklevadiani_seskhebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3310">
+            <field name="name">გადასახდელი მოგების გადასახადი</field>
+            <field name="code">3310</field>
+            <field name="parent" ref="a_3300"/>
+            <field name="type" ref="type_sagadasakhado_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3320">
+            <field name="name">გადასახდელი საშემოსავლო გადასახადი</field>
+            <field name="code">3320</field>
+            <field name="parent" ref="a_3300"/>
+            <field name="type" ref="type_sagadasakhado_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3330">
+            <field name="name">მიწოდებაზე გადასახდელი დღგ</field>
+            <field name="code">3330</field>
+            <field name="parent" ref="a_3300"/>
+            <field name="type" ref="type_sagadasakhado_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3331">
+            <field name="name">მიღებულ ავანზე გადასახდელი დღგ</field>
+            <field name="code">3331</field>
+            <field name="parent" ref="a_3300"/>
+            <field name="type" ref="type_sagadasakhado_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3340">
+            <field name="name">გადახდილი დღგ</field>
+            <field name="code">3340</field>
+            <field name="parent" ref="a_3300"/>
+            <field name="type" ref="type_sagadasakhado_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3350">
+            <field name="name">გადასახდელი აქციზი</field>
+            <field name="code">3350</field>
+            <field name="parent" ref="a_3300"/>
+            <field name="type" ref="type_sagadasakhado_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3360">
+            <field name="name">გადახდილი აქციზი</field>
+            <field name="code">3360</field>
+            <field name="parent" ref="a_3300"/>
+            <field name="type" ref="type_sagadasakhado_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3370">
+            <field name="name">სოციალური გადასახადი/საპენსიო</field>
+            <field name="code">3370</field>
+            <field name="parent" ref="a_3300"/>
+            <field name="type" ref="type_sagadasakhado_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3390">
+            <field name="name">სხვა საგადასახადო ვალდებულებები</field>
+            <field name="code">3390</field>
+            <field name="parent" ref="a_3300"/>
+            <field name="type" ref="type_sagadasakhado_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3410">
+            <field name="name">გადასახდელი პროცენტები</field>
+            <field name="code">3410</field>
+            <field name="parent" ref="a_3400"/>
+            <field name="type" ref="type_daritskhuli_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3420">
+            <field name="name">გადასახდელი დივიდენდები</field>
+            <field name="code">3420</field>
+            <field name="parent" ref="a_3400"/>
+            <field name="type" ref="type_daritskhuli_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3430">
+            <field name="name">ვალდებულება საგარანტიო მომსახურებაზე</field>
+            <field name="code">3430</field>
+            <field name="parent" ref="a_3400"/>
+            <field name="type" ref="type_daritskhuli_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_3440">
+            <field name="name">დარიცხული ჯარიმები/პირგასამტეხლოები</field>
+            <field name="code">3440</field>
+            <field name="parent" ref="a_3400"/>
+            <field name="type" ref="type_daritskhuli_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_4110">
+            <field name="name">გასანაღდებელი ობლიგაციები</field>
+            <field name="code">4110</field>
+            <field name="parent" ref="a_4100"/>
+            <field name="type" ref="type_grdzelvadiani_saseskho_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_4120">
+            <field name="name">გასანაღდებელი თამასუქები</field>
+            <field name="code">4120</field>
+            <field name="parent" ref="a_4100"/>
+            <field name="type" ref="type_grdzelvadiani_saseskho_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_4130">
+            <field name="name">ვალდებულებები ფინანსურ იჯარაზე</field>
+            <field name="code">4130</field>
+            <field name="parent" ref="a_4100"/>
+            <field name="type" ref="type_grdzelvadiani_saseskho_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_4140">
+            <field name="name">გრძელვადიანი სესხები</field>
+            <field name="code">4140</field>
+            <field name="parent" ref="a_4100"/>
+            <field name="type" ref="type_grdzelvadiani_saseskho_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_4190">
+            <field name="name">სხვა გრძელვადიანი სასესხო ვალდებულებები</field>
+            <field name="code">4190</field>
+            <field name="parent" ref="a_4100"/>
+            <field name="type" ref="type_grdzelvadiani_saseskho_valdebulebebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_4210">
+            <field name="name">გადავადებული მოგების გადასახადი</field>
+            <field name="code">4210</field>
+            <field name="parent" ref="a_4200"/>
+            <field name="type" ref="type_gadavadebuli_gadasakhadebis__da_skhva_grdzelvadian"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_4220">
+            <field name="name">სხვა გრძელვადიანი ვალდებულებები</field>
+            <field name="code">4220</field>
+            <field name="parent" ref="a_4200"/>
+            <field name="type" ref="type_gadavadebuli_gadasakhadebis__da_skhva_grdzelvadian"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_4310">
+            <field name="name">საპენსიო უზრუნველყოფის ანარიცხები</field>
+            <field name="code">4310</field>
+            <field name="parent" ref="a_4300"/>
+            <field name="type" ref="type_anaritskhebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_4320">
+            <field name="name">სხვა ანარიცხები</field>
+            <field name="code">4320</field>
+            <field name="parent" ref="a_4300"/>
+            <field name="type" ref="type_anaritskhebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_4410">
+            <field name="name">გადავადებული შემოსავალი</field>
+            <field name="code">4410</field>
+            <field name="parent" ref="a_4400"/>
+            <field name="type" ref="type_gadavadebuli_shemosavali"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5110">
+            <field name="name">ჩვეულებრივი აქციები</field>
+            <field name="code">5110</field>
+            <field name="parent" ref="a_5100"/>
+            <field name="type" ref="type_satsesdebo_kapitali"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5120">
+            <field name="name">პრივილიგიური აქციები</field>
+            <field name="code">5120</field>
+            <field name="parent" ref="a_5100"/>
+            <field name="type" ref="type_satsesdebo_kapitali"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5130">
+            <field name="name">გამოსყიდული საკუთარი აქციები</field>
+            <field name="code">5130</field>
+            <field name="parent" ref="a_5100"/>
+            <field name="type" ref="type_satsesdebo_kapitali"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5140">
+            <field name="name">საემისიო კაპიტალი</field>
+            <field name="code">5140</field>
+            <field name="parent" ref="a_5100"/>
+            <field name="type" ref="type_satsesdebo_kapitali"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5150">
+            <field name="name">საწესდებო კაპიტალი შპს-ში</field>
+            <field name="code">5150</field>
+            <field name="parent" ref="a_5100"/>
+            <field name="type" ref="type_satsesdebo_kapitali"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5210">
+            <field name="name">პარტნიორთა კაპიტალი</field>
+            <field name="code">5210</field>
+            <field name="parent" ref="a_5200"/>
+            <field name="type" ref="type_partniorta_kapitali_shezghuduli_qonebis_pasukhismg"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5310">
+            <field name="name">გაუნაწილებელი მოგება</field>
+            <field name="code">5310</field>
+            <field name="parent" ref="a_5300"/>
+            <field name="type" ref="type_mogeba__zarali"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5320">
+            <field name="name">დაუფარავი ზარალი</field>
+            <field name="code">5320</field>
+            <field name="parent" ref="a_5300"/>
+            <field name="type" ref="type_mogeba__zarali"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5330">
+            <field name="name">საანგარიშგებო პერიოდის მოგება/ზარალი</field>
+            <field name="code">5330</field>
+            <field name="parent" ref="a_5300"/>
+            <field name="type" ref="type_mogeba__zarali"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5410">
+            <field name="name">სარეზერვო კაპიტალი</field>
+            <field name="code">5410</field>
+            <field name="parent" ref="a_5400"/>
+            <field name="type" ref="type_rezervebi_da_dafinanseba"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5420">
+            <field name="name">ძირითადი საშუალებების გადაფასების რეზერვი</field>
+            <field name="code">5420</field>
+            <field name="parent" ref="a_5400"/>
+            <field name="type" ref="type_rezervebi_da_dafinanseba"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5430">
+            <field name="name">ინვესტიციების გადაფასების რეზერვი</field>
+            <field name="code">5430</field>
+            <field name="parent" ref="a_5400"/>
+            <field name="type" ref="type_rezervebi_da_dafinanseba"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_5490">
+            <field name="name">სხვა რეზერვები და დაფინანსება</field>
+            <field name="code">5490</field>
+            <field name="parent" ref="a_5400"/>
+            <field name="type" ref="type_rezervebi_da_dafinanseba"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_6110">
+            <field name="name">შემოსავალი რეალიზაციიდან</field>
+            <field name="code">6110</field>
+            <field name="parent" ref="a_6100"/>
+            <field name="type" ref="type_saoperatsio_shemosavlebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_6120">
+            <field name="name">გაყიდული საქონლის დაბრუნება და ფასდათმობა</field>
+            <field name="code">6120</field>
+            <field name="parent" ref="a_6100"/>
+            <field name="type" ref="type_saoperatsio_shemosavlebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_6190">
+            <field name="name">სხვა საოპერაციო შემოსავლები</field>
+            <field name="code">6190</field>
+            <field name="parent" ref="a_6100"/>
+            <field name="type" ref="type_saoperatsio_shemosavlebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7110">
+            <field name="name">ძირითადი მასალების დანახარჯები/შეძენა</field>
+            <field name="code">7110</field>
+            <field name="parent" ref="a_7100"/>
+            <field name="type" ref="type_realizebuli_produqtsiis_tvitghirebuleba_produqtsii"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7120">
+            <field name="name">პირდაპირი ხელფასი</field>
+            <field name="code">7120</field>
+            <field name="parent" ref="a_7100"/>
+            <field name="type" ref="type_realizebuli_produqtsiis_tvitghirebuleba_produqtsii"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7130">
+            <field name="name">სოციალური დანარიცხები პირდაპირ ხელფასზე</field>
+            <field name="code">7130</field>
+            <field name="parent" ref="a_7100"/>
+            <field name="type" ref="type_realizebuli_produqtsiis_tvitghirebuleba_produqtsii"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7140">
+            <field name="name">დამხმარე მასალების დანახარჯები/შეძენა</field>
+            <field name="code">7140</field>
+            <field name="parent" ref="a_7100"/>
+            <field name="type" ref="type_realizebuli_produqtsiis_tvitghirebuleba_produqtsii"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7150">
+            <field name="name">არაპირდაპირი ხელფასი</field>
+            <field name="code">7150</field>
+            <field name="parent" ref="a_7100"/>
+            <field name="type" ref="type_realizebuli_produqtsiis_tvitghirebuleba_produqtsii"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7160">
+            <field name="name">სოციალური დანარიცხები არაპირდაპირ ხელფასზე</field>
+            <field name="code">7160</field>
+            <field name="parent" ref="a_7100"/>
+            <field name="type" ref="type_realizebuli_produqtsiis_tvitghirebuleba_produqtsii"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7170">
+            <field name="name">ცვეთა და ამორტიზაცია</field>
+            <field name="code">7170</field>
+            <field name="parent" ref="a_7100"/>
+            <field name="type" ref="type_realizebuli_produqtsiis_tvitghirebuleba_produqtsii"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7180">
+            <field name="name">რემონტის დანახარჯები</field>
+            <field name="code">7180</field>
+            <field name="parent" ref="a_7100"/>
+            <field name="type" ref="type_realizebuli_produqtsiis_tvitghirebuleba_produqtsii"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7185">
+            <field name="name">სასაქონლო-მატერიალური მარაგის კორექტირება</field>
+            <field name="code">7185</field>
+            <field name="parent" ref="a_7100"/>
+            <field name="type" ref="type_realizebuli_produqtsiis_tvitghirebuleba_produqtsii"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7190">
+            <field name="name">სხვა საოპერაციო ხარჯები</field>
+            <field name="code">7190</field>
+            <field name="parent" ref="a_7100"/>
+            <field name="type" ref="type_realizebuli_produqtsiis_tvitghirebuleba_produqtsii"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7210">
+            <field name="name">გაყიდული/შეძენილი საქონელი</field>
+            <field name="code">7210</field>
+            <field name="parent" ref="a_7200"/>
+            <field name="type" ref="type_realizirebuli_saqonlis_tvitghirebuleba_savachro_sa"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7220">
+            <field name="name">შეძენილი საქონლის უკან დაბრუნება და ფასდათმობა</field>
+            <field name="code">7220</field>
+            <field name="parent" ref="a_7200"/>
+            <field name="type" ref="type_realizirebuli_saqonlis_tvitghirebuleba_savachro_sa"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7290">
+            <field name="name">სასაქონლო-მატერიალური მარაგის კორექტირება</field>
+            <field name="code">7290</field>
+            <field name="parent" ref="a_7200"/>
+            <field name="type" ref="type_realizirebuli_saqonlis_tvitghirebuleba_savachro_sa"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7310">
+            <field name="name">რეკლამის ხარჯები</field>
+            <field name="code">7310</field>
+            <field name="parent" ref="a_7300"/>
+            <field name="type" ref="type_mitsodebis_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7320">
+            <field name="name">შრომის ანაზღაურება და საკომისიო გასამრჯელო</field>
+            <field name="code">7320</field>
+            <field name="parent" ref="a_7300"/>
+            <field name="type" ref="type_mitsodebis_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7330">
+            <field name="name">შრომის ანაზღაურებაზე დანარიცხები</field>
+            <field name="code">7330</field>
+            <field name="parent" ref="a_7300"/>
+            <field name="type" ref="type_mitsodebis_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7340">
+            <field name="name">ტრანსპორტირებისა და შენახვის ხარჯები</field>
+            <field name="code">7340</field>
+            <field name="parent" ref="a_7300"/>
+            <field name="type" ref="type_mitsodebis_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7390">
+            <field name="name">მიწოდების სხვა ხარჯები</field>
+            <field name="code">7390</field>
+            <field name="parent" ref="a_7300"/>
+            <field name="type" ref="type_mitsodebis_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7410">
+            <field name="name">შრომის ანაზღაურება</field>
+            <field name="code">7410</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7415">
+            <field name="name">სოციალური დანარიცხები</field>
+            <field name="code">7415</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7420">
+            <field name="name">საიჯარო ქირა</field>
+            <field name="code">7420</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7425">
+            <field name="name">საოფისე ინვენტარი</field>
+            <field name="code">7425</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7430">
+            <field name="name">კომუნიკაციის ხარჯები</field>
+            <field name="code">7430</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7435">
+            <field name="name">დაზღვევა</field>
+            <field name="code">7435</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7440">
+            <field name="name">რემონტი</field>
+            <field name="code">7440</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7445">
+            <field name="name">კომპიუტერის ხარჯები</field>
+            <field name="code">7445</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7450">
+            <field name="name">საკონსულტაციო ხარჯები</field>
+            <field name="code">7450</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7455">
+            <field name="name">ცვეთა და ამორტიზაცია</field>
+            <field name="code">7455</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7460">
+            <field name="name">საეჭვო მოთხოვნებთან დაკავშირებული ხარჯები</field>
+            <field name="code">7460</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7465">
+            <field name="name">სხვა საგადასახადო ხარჯი</field>
+            <field name="code">7465</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7470">
+            <field name="name">წარმომადგენლობითი ხარჯები</field>
+            <field name="code">7470</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_7490">
+            <field name="name">სხვა საერთო ხარჯი</field>
+            <field name="code">7490</field>
+            <field name="parent" ref="a_7400"/>
+            <field name="type" ref="type_saerto_da_administratsiuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_8110">
+            <field name="name">საპროცენტო შემოსავლები</field>
+            <field name="code">8110</field>
+            <field name="parent" ref="a_8100"/>
+            <field name="type" ref="type_arasaoperatsio_shemosavlebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_8120">
+            <field name="name">დივიდენდები</field>
+            <field name="code">8120</field>
+            <field name="parent" ref="a_8100"/>
+            <field name="type" ref="type_arasaoperatsio_shemosavlebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_8130">
+            <field name="name">არასაოპერაციო მოგება</field>
+            <field name="code">8130</field>
+            <field name="parent" ref="a_8100"/>
+            <field name="type" ref="type_arasaoperatsio_shemosavlebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_8190">
+            <field name="name">სხვა არასაოპერაციო შემოსავალი</field>
+            <field name="code">8190</field>
+            <field name="parent" ref="a_8100"/>
+            <field name="type" ref="type_arasaoperatsio_shemosavlebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_8210">
+            <field name="name">საპროცენტო ხარჯები</field>
+            <field name="code">8210</field>
+            <field name="parent" ref="a_8200"/>
+            <field name="type" ref="type_arasaoperatsio_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_8220">
+            <field name="name">არასაოპერაციო ზარალი</field>
+            <field name="code">8220</field>
+            <field name="parent" ref="a_8200"/>
+            <field name="type" ref="type_arasaoperatsio_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_8290">
+            <field name="name">სხვა არასაოპერაციო ხარჯები</field>
+            <field name="code">8290</field>
+            <field name="parent" ref="a_8200"/>
+            <field name="type" ref="type_arasaoperatsio_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_9110">
+            <field name="name">განსაკუთრებული შემოსავლები</field>
+            <field name="code">9110</field>
+            <field name="parent" ref="a_9100"/>
+            <field name="type" ref="type_gansakutrebuli_shemosavlebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_9120">
+            <field name="name">განსაკუთრებული ხარჯები</field>
+            <field name="code">9120</field>
+            <field name="parent" ref="a_9100"/>
+            <field name="type" ref="type_gansakutrebuli_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+        <record model="account.account.template" id="a_9210">
+            <field name="name">მოგების გადასახადი</field>
+            <field name="code">9210</field>
+            <field name="parent" ref="a_9200"/>
+            <field name="type" ref="type_skhva_kharjebi"/>
+            <field name="reconcile" eval="False"/>
+            <field name="party_required" eval="False"/>
+        </record>
+    </data>
 </tryton>
