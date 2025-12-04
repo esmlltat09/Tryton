@@ -2,11 +2,10 @@
 <tryton>
     <data>
         <record model="account.account.type.template" id="type_root">
-                    <field name="name">Geo Chart Type</field>
-                        <field name="sequence" eval="0"/>
-                    <field name="statement">balance</field>
-                    <field name="display_balance">debit-credit</field>
-                </record>
+            <field name="name">Geo Chart Type</field>
+            <field name="sequence" eval="0"/>
+            <field name="display_balance">debit-credit</field>
+        </record>
         <record model="account.account.type.template" id="type_aqtivebi">
             <field name="name">აქტივები</field>
             <field name="parent" ref="type_root"/>

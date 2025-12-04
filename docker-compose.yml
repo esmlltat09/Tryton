@@ -25,7 +25,13 @@ services:
       - "8100:8000"
     volumes:
       - tryton_filestore:/var/lib/trytond
-      - ./modules:/modules
+      # სწორი გადამისამართებები თქვენი მოდულებისთვის:
+      - ./modules/account_ge:/usr/local/lib/python3.11/dist-packages/trytond/modules/account_ge
+      - ./modules/currency_ge:/usr/local/lib/python3.11/dist-packages/trytond/modules/currency_ge
+      - ./modules/ge_calendar:/usr/local/lib/python3.11/dist-packages/trytond/modules/ge_calendar
+      - ./modules/hr_payroll:/usr/local/lib/python3.11/dist-packages/trytond/modules/hr_payroll
+      - ./modules/income_rs:/usr/local/lib/python3.11/dist-packages/trytond/modules/income_rs
+      - ./modules/party_ge_identifier:/usr/local/lib/python3.11/dist-packages/trytond/modules/party_ge_identifier
 
 volumes:
   pgdata:
