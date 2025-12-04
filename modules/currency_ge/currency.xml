@@ -2,19 +2,23 @@
 <tryton>
     <data>
 
-        <!-- ახალი ხის ხედი ვალუტებისთვის, To GEL სვეტით -->
+        <!-- ახალი ხის ხედი ვალუტებისთვის, To GEL და GEL To სვეტებით -->
         <record model="ir.ui.view" id="currency_ge_currency_tree_gel">
             <field name="model">currency.currency</field>
             <field name="type">tree</field>
             <field name="name">currency_ge_currency_tree_gel</field>
             <field name="arch" type="xml">
-                <tree string="Currencies (To GEL)">
+                <![CDATA[
+                <tree>
                     <field name="name"/>
                     <field name="symbol"/>
                     <field name="code"/>
-                    <!-- ჩვენი Function ველი: 1 FX = X GEL -->
+                    <!-- 1 FX = X GEL -->
                     <field name="gel_per_unit" string="To GEL"/>
+                    <!-- სტანდარტული კურსი: 1 GEL = X FX -->
+                    <field name="rate" string="GEL To"/>
                 </tree>
+                ]]>
             </field>
         </record>
 
@@ -22,9 +26,9 @@
         <record model="ir.action.act_window" id="act_currency_ge_currency_tree_gel">
             <field name="name">Currencies with To GEL</field>
             <field name="res_model">currency.currency</field>
-            <field name="view_mode">tree,form</field>
         </record>
 
+        <!-- ჩვენს Action-ს ვუკავშირებთ ზემოთ შექმნილ tree ხედს -->
         <record model="ir.action.act_window.view" id="act_currency_ge_currency_tree_gel_view_tree">
             <field name="sequence" eval="10"/>
             <field name="view" ref="currency_ge_currency_tree_gel"/>
